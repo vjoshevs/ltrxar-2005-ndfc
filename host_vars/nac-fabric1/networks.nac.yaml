@@ -31,11 +31,11 @@ vxlan:
     network_attach_groups:
       - name: all
         switches:
-          - { hostname: netascode-leaf1, ports: [Ethernet1/13, Ethernet1/14] }
-          - { hostname: netascode-leaf2, ports: [Ethernet1/13, Ethernet1/14] }
+          - { hostname: netascode-border-leaf1, ports: [Ethernet1/13, Ethernet1/14] }
+          - { hostname: netascode-border-leaf2, ports: [Ethernet1/13, Ethernet1/14] }
       - name: leaf1
         switches:
-          - { hostname: netascode-leaf1, ports: [] }
+          - { hostname: netascode-border-leaf1, ports: [] }
       - name: leaf2
         switches:
-          - { hostname: netascode-leaf2, ports: [] }
+          - { hostname: netascode-border-leaf2, ports: [] }
