@@ -1,0 +1,123 @@
+---
+# image: caf-sac/nac:0.9.3
+image: mtarking/nac-vxlan:24.0.3
+stages:
+  # - setup
+  - validate
+  - deploy
+  - test
+  - notify
+
+variables:
+  ND_HOST:
+    description: "Cisco ND HOST"
+  ND_DOMAIN:
+    description: "Cisco ND Domain"
+  ND_USERNAME:
+    description: "Cisco ND Username"
+  ND_PASSWORD:
+    description: "Cisco ND Password"
+  NDFC_SW_USERNAME:
+    description: "Cisco NDFC Switch Username"
+  NDFC_SW_PASSWORD:
+    description: "Cisco NDFC Switch Password"
+  # DC_VXLAN_SCHEMA:
+  #   description: "Path to the schema file"
+  # DC_VXLAN_RULES:
+  #   description: "Path to the rules file"
+  WEBEX_ROOM_ID:
+    description: "Cisco Webex Room ID"
+  WEBEX_TOKEN:
+    description: "Cisco Webex Bot Token"
+
+# before_script:
+#   - set -e
+#   - export ROOT_PATH=$(pwd) 
+#   - export DC_VXLAN_SCHEMA=${ROOT_PATH}/nac_vxlan/schemas/schema.yaml
+#   - export DC_VXLAN_RULES=${ROOT_PATH}/collections/ansible_collections/cisco/nac_dc_vxlan/roles/validate/files/rules/
+
+# cache:
+#   paths:
+#     - .pip_cache/
+
+# setup:
+#   stage: setup
+#   script:
+#     - echo "Setting up environment..."
+#     - echo ${ROOT_PATH}
+#     - pip install --cache-dir .pip_cache -r requirements.txt --force-reinstall
+#     - ansible-galaxy collection install -U -f -p ./collections/ansible_collections/ -r requirements.yaml
+#     - git clone https://wwwin-github.cisco.com/netascode/nac-vxlan.git nac_vxlan
+
+validate:
+  stage: validate
+  rules:
+    - if: $CI_COMMIT_TAG == null
+  script:
+    - set -o pipefail && ansible-playbook -i inventory.yaml ndfc_validate.yaml |& tee validate_output.txt
+  artifacts:
+    paths:
+      - validate_output.txt
+  cache: []
+
+deploy:
+  stage: deploy
+  dependencies:
+    - validate
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+      when: manual
+  script:
+    - set -o pipefail && ansible-playbook -i inventory.yaml vxlan.yaml -vvv |& tee deploy_output.txt
+
+test-integration:
+  stage: test
+  dependencies:
+    - deploy
+  needs:
+    - deploy
+  rules:
+    - if: $CI_COMMIT_BRANCH == $CI_DEFAULT_BRANCH
+  script:
+    # - set -o pipefail && iac-test -d ./host_vars/nac-ndfc1 -d ${ROOT_PATH}/nac_vxlan/defaults/defaults.yaml -t ${ROOT_PATH}/nac_vxlan/templates -f ${ROOT_PATH}/nac_vxlan/jinja_filters -o ./tests/results/ndfc |& tee test_output.txt
+    - set -o pipefail && iac-test -d ./host_vars/nac-fabric1 -d ./group_vars/ndfc/defaults.yaml -t ./tests/templates -f ./tests/filters -o ./tests/results/ndfc |& tee test_output.txt
+  artifacts:
+    when: always
+    paths:
+      - tests/results/ndfc/*.html
+      - tests/results/ndfc/xunit.xml
+      - test_output.txt
+    reports:
+      junit: tests/results/ndfc/xunit.xml
+
+failure:
+  stage: notify
+  script:
+    - python3 .ci/webex-notification-gitlab.py -f
+  when: on_failure
+  artifacts:
+    when: always
+    paths:
+      - tests/results/ndfc/*.html
+      - tests/results/ndfc/xunit.xml
+      - plan.txt
+      - fmt_output.txt
+      - validate_output.txt
+      - test_output.txt
+  cache: []
+
+success:
+  stage: notify
+  script:
+    - python3 .ci/webex-notification-gitlab.py -s
+  when: on_success
+  artifacts:
+    when: always
+    paths:
+      - tests/results/ndfc/*.html
+      - tests/results/ndfc/xunit.xml
+      - plan.txt
+      - fmt_output.txt
+      - validate_output.txt
+      - test_output.txt
+  cache: []
