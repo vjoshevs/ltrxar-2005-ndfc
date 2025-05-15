@@ -38,95 +38,97 @@ vxlan:
         interfaces:
           - name: Ethernet1/2 # only to test the configuration
             mode: routed
-            ipv4_address: 192.168.1.2/24
+            ipv4_address: 10.10.1.10/24
             vrf: NaC-VRF01
-          - name: Ethernet1/2.100
-            mode: routed_sub
-            description: "dc-edge1"
-            mtu: 9216
-            speed: auto
-            enabled: true
-            ipv4_address: 10.1.254.0/31 # other side 10.1.254.1/31
-            vrf: NaC-VRF01
-            dot1q_id: 100
-            ipv4_route_tag: 12345 # This was not applied via VXLAN as code
-          - name: Ethernet1/2.200
-            mode: routed_sub
-            description: "dc-edge1"
-            mtu: 9216
-            speed: auto
-            enabled: true
-            ipv4_address: 10.2.254.0/31
-            vrf: NaC-VRF02
-            dot1q_id: 200
-            ipv4_route_tag: 12345
-          - name: Ethernet1/3.100
-            mode: routed_sub
-            description: "dc-edge2"
-            mtu: 9216
-            speed: auto
-            enabled: true
-            ipv4_address: 10.1.254.2/31
-            vrf: NaC-VRF01
-            dot1q_id: 100
-            ipv4_route_tag: 12345
-          - name: Ethernet1/3.200
-            mode: routed_sub
-            description: "dc-edge2"
-            mtu: 9216
-            speed: auto
-            enabled: true
-            ipv4_address: 10.2.254.2/31
-            vrf: NaC-VRF02
-            dot1q_id: 200
             ipv4_route_tag: 12345
 
-      - name: netascode-border-leaf2
-        serial_number: 92OM1YBTCNP
-        role: border
-        management:
-          default_gateway_v4: 198.18.128.1
-          management_ipv4_address: 198.18.133.204
-        routing_loopback_id: 0
-        vtep_loopback_id: 1
-        interfaces:
-          - name: Ethernet1/2.100
-            mode: routed_sub
-            description: "dc-edge1"
-            mtu: 9216
-            speed: auto
-            enabled: true
-            ipv4_address: 10.1.254.4/31
-            vrf: NaC-VRF01
-            dot1q_id: 100
-            ipv4_route_tag: 12345
-          - name: Ethernet1/2.200
-            mode: routed_sub
-            description: "dc-edge1"
-            mtu: 9216
-            speed: auto
-            enabled: true
-            ipv4_address: 10.2.254.4/31
-            vrf: NaC-VRF02
-            dot1q_id: 200
-            ipv4_route_tag: 12345
-          - name: Ethernet1/3.100
-            mode: routed_sub
-            description: "dc-edge2"
-            mtu: 9216
-            speed: auto
-            enabled: true
-            ipv4_address: 10.1.254.6/31
-            vrf: NaC-VRF01
-            dot1q_id: 100
-            ipv4_route_tag: 12345
-          - name: Ethernet1/3.200
-            mode: routed_sub
-            description: "dc-edge2"
-            mtu: 9216
-            speed: auto
-            enabled: true
-            ipv4_address: 10.2.254.6/31
-            vrf: NaC-VRF02
-            dot1q_id: 200
-            ipv4_route_tag: 12345
+          # - name: Ethernet1/2.100
+          #   mode: routed_sub
+          #   description: "dc-edge1"
+          #   mtu: 9216
+          #   speed: auto
+          #   enabled: true
+          #   ipv4_address: 10.1.254.0/31 # other side 10.1.254.1/31
+          #   vrf: NaC-VRF01
+          #   dot1q_id: 100
+          #   ipv4_route_tag: 12346 # This was not applied via VXLAN as code
+          # - name: Ethernet1/2.200
+          #   mode: routed_sub
+          #   description: "dc-edge1"
+          #   mtu: 9216
+          #   speed: auto
+          #   enabled: true
+          #   ipv4_address: 10.2.254.0/31
+          #   vrf: NaC-VRF02
+          #   dot1q_id: 200
+          #   ipv4_route_tag: 12345
+          # - name: Ethernet1/3.100
+          #   mode: routed_sub
+          #   description: "dc-edge2"
+          #   mtu: 9216
+          #   speed: auto
+          #   enabled: true
+          #   ipv4_address: 10.1.254.2/31
+          #   vrf: NaC-VRF01
+          #   dot1q_id: 100
+          #   ipv4_route_tag: 12345
+          # - name: Ethernet1/3.200
+          #   mode: routed_sub
+          #   description: "dc-edge2"
+          #   mtu: 9216
+          #   speed: auto
+          #   enabled: true
+          #   ipv4_address: 10.2.254.2/31
+          #   vrf: NaC-VRF02
+          #   dot1q_id: 200
+          #   ipv4_route_tag: 12345
+
+      # - name: netascode-border-leaf2
+      #   serial_number: 92OM1YBTCNP
+      #   role: border
+      #   management:
+      #     default_gateway_v4: 198.18.128.1
+      #     management_ipv4_address: 198.18.133.204
+      #   routing_loopback_id: 0
+      #   vtep_loopback_id: 1
+      #   interfaces:
+      #     - name: Ethernet1/2.100
+      #       mode: routed_sub
+      #       description: "dc-edge1"
+      #       mtu: 9216
+      #       speed: auto
+      #       enabled: true
+      #       ipv4_address: 10.1.254.4/31
+      #       vrf: NaC-VRF01
+      #       dot1q_id: 100
+      #       ipv4_route_tag: 12345
+      #     - name: Ethernet1/2.200
+      #       mode: routed_sub
+      #       description: "dc-edge1"
+      #       mtu: 9216
+      #       speed: auto
+      #       enabled: true
+      #       ipv4_address: 10.2.254.4/31
+      #       vrf: NaC-VRF02
+      #       dot1q_id: 200
+      #       ipv4_route_tag: 12345
+      #     - name: Ethernet1/3.100
+      #       mode: routed_sub
+      #       description: "dc-edge2"
+      #       mtu: 9216
+      #       speed: auto
+      #       enabled: true
+      #       ipv4_address: 10.1.254.6/31
+      #       vrf: NaC-VRF01
+      #       dot1q_id: 100
+      #       ipv4_route_tag: 12345
+      #     - name: Ethernet1/3.200
+      #       mode: routed_sub
+      #       description: "dc-edge2"
+      #       mtu: 9216
+      #       speed: auto
+      #       enabled: true
+      #       ipv4_address: 10.2.254.6/31
+      #       vrf: NaC-VRF02
+      #       dot1q_id: 200
+      #       ipv4_route_tag: 12345
