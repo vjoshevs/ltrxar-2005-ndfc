@@ -1,48 +1,48 @@
-# ---
-# vxlan:
-#   overlay_extensions:
-#     vrf_lites:
-#       - name: vrf-lite-vrf02
-#         vrf: NaC-VRF02
-#         ospf:
-#           process: OVERLAY
-#           areas:
-#             - id: 0
-#               area_type: standard
-#           # bfd:
-#           #   enabled: true
-#         switches:
-#           - name: netascode-border-leaf1
-#             # router_id: 1.1.2.21
-#             redistribution:
-#               - source: bgp
-#                 route_map_ipv4: rm-redistribute-ospf
-#               # - source: ospf
-#               #   route_map_ipv4: rm-default_only
-#             interfaces:
-#               - name: Ethernet1/3
-#                 ospf:
-#                   area: 0.0.0.0
-#                   passive_interface: false
-#                   network_type: point-to-point
-#                   # auth_key: a667d47acc18ea6b8da14f191e5f53b5 # should be 3des
-#                   # auth_type : md5
-#                   # bfd:
-#                   #   enabled: true
-#           - name: netascode-border-leaf2
-#             # router_id: 1.1.2.21
-#             redistribution:
-#               - source: bgp
-#                 route_map_ipv4: rm-redistribute-ospf
-#               # - source: ospf
-#               #   route_map_ipv4: rm-default_only
-#             interfaces:
-#               - name: Ethernet1/3
-#                 ospf:
-#                   area: 0.0.0.0
-#                   passive_interface: false
-#                   network_type: point-to-point
-#                   # auth_key: a667d47acc18ea6b8da14f191e5f53b5 # should be 3des
-#                   # auth_type : md5
-#                   # bfd:
-#                   #   enabled: true
+---
+vxlan:
+  overlay_extensions:
+    vrf_lites:
+      - name: vrf-lite-vrf02
+        vrf: NaC-VRF02
+        ospf:
+          process: OVERLAY
+          areas:
+            - id: 0
+              area_type: standard
+          # bfd:
+          #   enabled: true
+        switches:
+          - name: netascode-border-leaf1
+            # router_id: 1.1.2.21
+            redistribution:
+              - source: bgp
+                route_map_ipv4: rm-redistribute-ospf
+              # - source: ospf
+              #   route_map_ipv4: rm-default_only
+            interfaces:
+              - name: Ethernet1/3
+                ospf:
+                  area: 0.0.0.0
+                  passive_interface: false
+                  network_type: point-to-point
+                  # auth_key: a667d47acc18ea6b8da14f191e5f53b5 # should be 3des
+                  # auth_type : md5
+                  # bfd:
+                  #   enabled: true
+          - name: netascode-border-leaf2
+            # router_id: 1.1.2.21
+            redistribution:
+              - source: bgp
+                route_map_ipv4: rm-redistribute-ospf
+              # - source: ospf
+              #   route_map_ipv4: rm-default_only
+            interfaces:
+              - name: Ethernet1/3
+                ospf:
+                  area: 0.0.0.0
+                  passive_interface: false
+                  network_type: point-to-point
+                  # auth_key: a667d47acc18ea6b8da14f191e5f53b5 # should be 3des
+                  # auth_type : md5
+                  # bfd:
+                  #   enabled: true
