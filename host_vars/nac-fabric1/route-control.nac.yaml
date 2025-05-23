@@ -39,16 +39,16 @@ vxlan:
           entries:
             - seq_number: 10
               operation: permit
-              # match:
-              #   - route_types:
-              #       - internal
+              match:
+                - route_types:
+                    - internal
         - name: rm-redistribute-ospf
           entries:
             - seq_number: 10
               operation: permit
-              match:
-                - route_types:
-                    - internal
+              # match:
+              #   - route_types:
+              #       - internal
             #   match:
             #     - ipv4:
             #         address_prefix_list:
