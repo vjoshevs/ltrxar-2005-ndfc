@@ -10,15 +10,12 @@ vxlan:
               - address: 10.10.1.1
                 remote_as: 65099
                 description: BGP to dc-edge1
-                # password: 9125d59c18a9b015
                 address_family_ipv4_unicast:
                   send_community: true
                   send_ext_community: true
               - address: 10.10.2.2
                 remote_as: 65099
                 description: BGP to dc-edge2
-                # password: 9125d59c18a9b015
                 address_family_ipv4_unicast:
                   send_community: true
                   send_ext_community: true
-
