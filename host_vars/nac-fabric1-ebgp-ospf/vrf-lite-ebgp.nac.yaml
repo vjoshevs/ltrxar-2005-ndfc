@@ -2,23 +2,25 @@
 vxlan:
   overlay_extensions:
     vrf_lites:
-      - name: vrf-lite-vrf10
-        vrf: NaC-VRF10
+      - name: vrf-lite-vrf01
+        vrf: NaC-VRF01
         switches:
           - name: netascode-border-leaf1
             bgp_peers:
-              - address: 10.10.1.1
+              - address: 10.10.1.2
                 remote_as: 65099
                 description: BGP to dc-edge1
                 # password: 9125d59c18a9b015
                 address_family_ipv4_unicast:
                   send_community: true
                   send_ext_community: true
-              - address: 10.10.2.2
+
+          - name: netascode-border-leaf2
+            bgp_peers:
+              - address: 10.10.201.2
                 remote_as: 65099
-                description: BGP to dc-edge2
+                description: BGP to dc-edge1
                 # password: 9125d59c18a9b015
                 address_family_ipv4_unicast:
                   send_community: true
                   send_ext_community: true
-

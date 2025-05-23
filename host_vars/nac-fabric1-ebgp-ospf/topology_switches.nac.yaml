@@ -8,8 +8,8 @@ vxlan:
         management:
           default_gateway_v4: 198.18.128.1
           management_ipv4_address: 198.18.133.201
-        # routing_loopback_id: 0
-        # vtep_loopback_id: 1
+        routing_loopback_id: 0
+        vtep_loopback_id: 1
 
       - name: netascode-leaf1
         serial_number: 90U83L2BNXD
@@ -39,15 +39,13 @@ vxlan:
           - name: Ethernet1/2 # only to test the configuration
             mode: routed
             ipv4_address: 10.10.1.10/24
-            vrf: NaC-VRF10
+            vrf: NaC-VRF01
             ipv4_route_tag: 12345
-            mtu: 1500
           - name: Ethernet1/3 # only to test the configuration
             mode: routed
-            ipv4_address: 10.10.2.10/24
-            vrf: NaC-VRF10
+            ipv4_address: 10.10.201.10/24
+            vrf: NaC-VRF02
             ipv4_route_tag: 12345
-            mtu: 1500
 
       - name: netascode-border-leaf2
         serial_number: 9UT71CNV80D
@@ -60,13 +58,11 @@ vxlan:
         interfaces:
           - name: Ethernet1/2 # only to test the configuration
             mode: routed
-            ipv4_address: 10.10.201.10/24
-            vrf: NaC-VRF11
+            ipv4_address: 10.10.2.10/24
+            vrf: NaC-VRF01
             ipv4_route_tag: 12345
-            mtu: 1500
           - name: Ethernet1/3 # only to test the configuration
             mode: routed
             ipv4_address: 10.10.202.10/24
-            vrf: NaC-VRF11
+            vrf: NaC-VRF02
             ipv4_route_tag: 12345
-            mtu: 1500

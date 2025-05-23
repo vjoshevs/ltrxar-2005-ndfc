@@ -1,0 +1,87 @@
+---
+vxlan:
+  overlay_extensions:
+    route_control:
+      # standard_community_lists:
+      #   - name: CL-LPREF110
+      #     entries:
+      #       - seq_number: 10
+      #         operation: permit
+      #         communities:
+      #           - 65000:110
+      #   - name: CL-LPREF120
+      #     entries:
+      #       - seq_number: 10
+      #         operation: permit
+      #         communities:
+      #           - 65000:120
+
+      # ipv4_prefix_lists:
+      #   - name: IPPREF1
+      #     entries:
+      #       - seq_number: 10
+      #         operation: permit
+      #         prefix: 172.16.0.0/16
+      #       - seq_number: 20
+      #         operation: permit
+      #         prefix: 172.17.0.0/19
+      #   - name: IPPREF2
+      #     entries:
+      #       - seq_number: 10
+      #         operation: permit
+      #         prefix: 10.0.0.0/24
+      #       - seq_number: 20
+      #         operation: permit
+      #         prefix: 10.100.0.0/19
+      #         le: 24
+      route_maps:
+        - name: rm-redistribute-bgp
+          entries:
+            - seq_number: 10
+              operation: permit
+              # match:
+              #   - route_types:
+              #       - internal
+        - name: rm-redistribute-ospf
+          entries:
+            - seq_number: 10
+              operation: permit
+              match:
+                - route_types:
+                    - internal
+            #   match:
+            #     - ipv4:
+            #         address_prefix_list:
+            #           - IPPREF1
+            #     - community_list:
+            #         community: CL-LPREF110
+            #   set:
+            #     - local_preference: 110
+            # - seq_number: 20
+            #   operation: permit
+            #   match:
+            #     - ipv4:
+            #         address_prefix_list:
+            #           - IPPREF2
+            #     - community_list:
+            #         community: CL-LPREF120
+            #   set:
+            #     - local_preference: 120
+            # - seq_number: 100
+            #   operation: permit
+      groups:
+        - name: external_policies_RCtrlGrp
+          # standard_community_lists:
+          #   - name: CL-LPREF110
+          #   - name: CL-LPREF120
+          # ipv4_prefix_lists:
+          #   - name: IPPREF1
+          #   - name: IPPREF2
+          route_maps:
+            - name: rm-redistribute-bgp
+            - name: rm-redistribute-ospf
+
+      switches:
+        - name: netascode-border-leaf2
+          groups:
+            - external_policies_RCtrlGrp
