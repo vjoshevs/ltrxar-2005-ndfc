@@ -1,0 +1,77 @@
+---
+vxlan:
+  overlay_extensions:
+    vrf_lites:
+      - name: vrf-lite-vrf01
+        vrf: NaC-VRF01
+        switches:
+          - name: netascode-border-leaf1
+            bgp_peers:
+              - address: 10.10.1.2 # g3.100
+                remote_as: 65099
+                description: BGP to dc-edge1
+                # password: 9125d59c18a9b015
+                address_family_ipv4_unicast:
+                  send_community: true
+                  send_ext_community: true
+              # - address: 10.1.254.3 # g3.100
+              #   remote_as: 65099
+              #   description: BGP to dc-edge2
+              #   # password: 9125d59c18a9b015
+              #   address_family_ipv4_unicast:
+              #     send_community: true
+              #     send_ext_community: true
+
+          # - name: netascode-border-leaf2
+          #   bgp_peers:
+          #     - address: 10.1.254.5 # g4.100
+          #       remote_as: 64555
+          #       description: BGP to dc-edge1
+          #       password: 9125d59c18a9b015
+          #       address_family_ipv4_unicast:
+          #         send_community: true
+          #         send_ext_community: true
+          #     - address: 10.1.254.7 # g4.100
+          #       remote_as: 64555
+          #       description: BGP to dc-edge2
+          #       password: 9125d59c18a9b015
+          #       address_family_ipv4_unicast:
+          #         send_community: true
+          #         send_ext_community: true
+
+      # - name: vrf-lite-vrf02
+      #   vrf: NaC-VRF02
+      #   switches:
+      #     - name: netascode-border-leaf1
+      #       bgp_peers:
+      #         - address: 10.10.1.2 # g3.200
+      #           remote_as: 64555
+      #           description: BGP to dc-edge1
+      #           password: 9125d59c18a9b015
+      #           address_family_ipv4_unicast:
+      #             send_community: true
+      #             send_ext_community: true
+      #         - address: 10.2.254.3 # g3.200
+      #           remote_as: 64555
+      #           description: BGP to dc-edge2
+      #           password: 9125d59c18a9b015
+      #           address_family_ipv4_unicast:
+      #             send_community: true
+      #             send_ext_community: true
+
+          # - name: netascode-border-leaf2
+          #   bgp_peers:
+          #     - address: 10.2.254.5 # g4.200
+          #       remote_as: 64555
+          #       description: BGP to dc-edge1
+          #       password: 9125d59c18a9b015
+          #       address_family_ipv4_unicast:
+          #         send_community: true
+          #         send_ext_community: true
+          #     - address: 10.2.254.7 # g4.200
+          #       remote_as: 64555
+          #       description: BGP to dc-edge2
+          #       password: 9125d59c18a9b015
+          #       address_family_ipv4_unicast:
+          #         send_community: true
+          #         send_ext_community: true

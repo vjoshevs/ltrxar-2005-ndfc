@@ -1,0 +1,29 @@
+---
+vxlan:
+  overlay_extensions:
+    vrf_lites:
+      - name: vrf-lite-vrf11
+        vrf: NaC-VRF11
+        ospf:
+          process: OVERLAY
+          areas:
+            - id: 0
+              area_type: standard
+        switches:
+          - name: netascode-border-leaf2
+            redistribution:
+              - source: bgp
+                route_map_ipv4: rm-redistribute-bgp
+              - source: ospf
+                route_map_ipv4: rm-redistribute-ospf
+            interfaces:
+              - name: Ethernet1/2
+                ospf:
+                  area: 0.0.0.0
+                  passive_interface: false
+                  network_type: broadcast
+              - name: Ethernet1/3
+                ospf:
+                  area: 0.0.0.0
+                  passive_interface: false
+                  network_type: broadcast
