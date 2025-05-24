@@ -3,14 +3,14 @@ vxlan:
   topology:
     switches:
       - name: netascode-spine1
-        serial_number: 9MTTJS2ESGH
+        serial_number: 971RVZNKPLL
         role: spine
         management:
           default_gateway_v4: 198.18.128.1
           management_ipv4_address: 198.18.133.201
 
       - name: netascode-leaf1
-        serial_number: 90U83L2BNXD
+        serial_number: 9YDQ1RMT55K
         role: leaf
         management:
           default_gateway_v4: 198.18.128.1
@@ -26,7 +26,7 @@ vxlan:
             mode: access
 
       - name: netascode-border-leaf1
-        serial_number: 9RO1OA9SQYR
+        serial_number: 929RXBOXAJD
         role: border
         management:
           default_gateway_v4: 198.18.128.1
@@ -48,7 +48,7 @@ vxlan:
             mtu: 1500
 
       - name: netascode-border-leaf2
-        serial_number: 9UT71CNV80D
+        serial_number: 9N3G8N3OFRY
         role: border
         management:
           default_gateway_v4: 198.18.128.1
