@@ -1,0 +1,37 @@
+---
+vxlan:
+  topology:
+    switches:
+      - name: netascode-spine1
+        serial_number: 971RVZNKPLL
+        role: spine
+        management:
+          default_gateway_v4: 198.18.128.1
+          management_ipv4_address: 198.18.133.201
+
+      - name: netascode-leaf1
+        serial_number: 9YDQ1RMT55K
+        role: leaf
+        management:
+          default_gateway_v4: 198.18.128.1
+          management_ipv4_address: 198.18.133.202
+        routing_loopback_id: 0
+        vtep_loopback_id: 1
+
+      - name: netascode-border-leaf1
+        serial_number: 929RXBOXAJD
+        role: border
+        management:
+          default_gateway_v4: 198.18.128.1
+          management_ipv4_address: 198.18.133.203
+        routing_loopback_id: 0
+        vtep_loopback_id: 1
+
+      - name: netascode-border-leaf2
+        serial_number: 9N3G8N3OFRY
+        role: border
+        management:
+          default_gateway_v4: 198.18.128.1
+          management_ipv4_address: 198.18.133.204
+        routing_loopback_id: 0
+        vtep_loopback_id: 1

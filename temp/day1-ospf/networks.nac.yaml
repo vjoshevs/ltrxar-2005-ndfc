@@ -1,0 +1,30 @@
+---
+vxlan:
+  overlay:
+    networks:
+      - name: NaC-Net01
+        vrf_name: NaC-VRF10
+        net_id: 130001
+        vlan_id: 2301
+        vlan_name: NaC-Net01_vlan2301
+        gw_ip_address: "192.168.10.1/24"
+        network_attach_group: net1_attach_group
+      - name: NaC-Net02
+        vrf_name: NaC-VRF11
+        net_id: 130002
+        vlan_id: 2302
+        vlan_name: NaC-Net02_vlan2302
+        gw_ip_address: "172.16.11.1/24"
+        network_attach_group: net2_attach_group
+
+    network_attach_groups:
+      - name: net1_attach_group
+        switches:
+          - { hostname: netascode-leaf1, ports: ["ethernet1/2"] }
+          - { hostname: netascode-border-leaf1, ports: [] }
+          - { hostname: netascode-border-leaf2, ports: [] }
+      - name: net2_attach_group
+        switches:
+          - { hostname: netascode-leaf1, ports: ["ethernet1/3"] }
+          - { hostname: netascode-border-leaf1, ports: [] }
+          - { hostname: netascode-border-leaf2, ports: [] }

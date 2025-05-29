@@ -1,0 +1,16 @@
+---
+vxlan:
+  overlay:
+    vrfs:
+      - name: NaC-VRF10
+        vrf_id: 150010
+        vlan_id: 1010
+        vrf_attach_group: vrf10_attach_group
+
+    vrf_attach_groups:
+      - name: vrf10_attach_group
+        switches:
+          - { hostname: netascode-leaf1 }
+          - { hostname: netascode-border-leaf1 }
+          - { hostname: netascode-border-leaf2 }
+
