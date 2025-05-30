@@ -138,3 +138,7 @@ nac-vxlan/
 nac_vxlan/
 
 .DS_Store
+
+.pip_cache/
+
+ndfc-venv/
