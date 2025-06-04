@@ -1,5 +1,5 @@
 ---
-image: mtarking/nac-vxlan:24.0.3
+image: danischm/nac:0.1.5
 stages:
   - setup
   - validate
@@ -47,6 +47,7 @@ validate:
   artifacts:
     paths:
       - validate_output.txt
+      - collections/ansible_collections/
   cache: []
   needs:
     - setup
@@ -59,6 +60,7 @@ validate:
 deploy:
   stage: deploy
   script:
+    - pip install --cache-dir .pip_cache -r requirements.txt --force-reinstall
     - set -o pipefail && ansible-playbook -i inventory.yaml vxlan.yaml |& tee deploy_output.txt
   artifacts:
     when: always
@@ -67,6 +69,10 @@ deploy:
   cache: []
   needs:
     - validate
+    - setup
+  dependencies:
+    - validate
+    - setup
   rules:
     - if: $CI_PIPELINE_SOURCE != "schedule" && $CI_COMMIT_BRANCH == "main"
 
