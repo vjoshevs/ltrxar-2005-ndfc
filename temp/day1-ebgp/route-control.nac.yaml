@@ -1,0 +1,23 @@
+---
+vxlan:
+  overlay_extensions:
+    route_control:
+      route_maps:
+        - name: rm-redistribute-bgp
+          entries:
+            - seq_number: 10
+              operation: permit
+              match:
+                - route_types:
+                    - internal
+      groups:
+        - name: external_policies_RCtrlGrp_ebgp
+          route_maps:
+            - name: rm-redistribute-bgp
+        - name: external_policies_RCtrlGrp_ospf
+          route_maps:
+            - name: rm-redistribute-bgp
+      switches:
+        - name: netascode-border-leaf1
+          groups:
+            - external_policies_RCtrlGrp_ebgp
